@@ -9,7 +9,7 @@ mass = 70
 
 data = pd.read_csv("pep.csv")
 
-print(data['Velocity Time (s)'].values.tolist())
+#print(data['Velocity Time (s)'].values.tolist())
 def getgravity(y):
 	h = y + 6378100
 	g = constants.G	*(5.972 * 10**24)/(h**2)
@@ -33,26 +33,32 @@ def getdensity(y):
 def y(t):
 	deltat = 1;
 	vknot = 0;
+	v =[]
+	y = []
 	yknot = 38969;
 	for i in range(0,int(t/deltat)):
-		v = vknot + (getgravity(yknot) - ((math.pi*getdensity(yknot)*(radius**2)*(vknot**2)*0.5)/mass)*deltat)
+		v.append(vknot + (getgravity(yknot) - ((math.pi*getdensity(yknot)*(radius**2)*(vknot**2)*0.5)/mass)*deltat))
 		#Trapezoidal rule to estimate integral 
-		y = yknot -((v+vknot)*deltat/2)
-		vknot = v
-		yknot = y
-	return yknot	
+		y.append(yknot -((v[len(v)-1]+vknot)*deltat/2))
+		vknot = v[len(v)-1]
+		yknot = y[len(y)-1]
+	a ={'velocity':v , 'Altitude' : y}
+	
+	return a
+
 
 
 time = range(0,250)
-position = [y(i) for i in time]
-plt.plot(time,position)
+
+plt.figure(1)
+plt.subplot(111)
+plt.plot(time,y(250)['Altitude'])
 
 
-#COMMENT EITHER ONE OF THESE OUT 
 plt.plot(data['Alt Time (s)'],data['Altitude (m)'])
-#plt.plot(data['Velocity Time (s)'],data['Velocity (m/s)'])
-
-
+plt.figure(2)
+plt.subplot(211)
+plt.plot(time, y(250)['velocity'])
+plt.plot(data['Velocity Time (s)'],data['Velocity (m/s)'])
 
 plt.show()
-
