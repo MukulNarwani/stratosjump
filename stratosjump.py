@@ -3,49 +3,17 @@ import math
 import json
 from scipy import constants
 import matplotlib.pyplot as plt
-radius = 0.5
+radius = 0.4
 mass = 70
 
 
-data = pd.read_excel("C:\\Users\\narwa\\Downloads\\Book.xlsx")
+data = pd.read_csv("pep.csv")
 
-#print(data['Altitude'][18])
-'''file = open("C:\\Users\\narwa\\Downloads\\cartodb-query.geojson","r")
-text = file.read()
-print (text)
-file.close()
-
-
-#TODO: code equations viscosity density figure deltat out
-C=math.pi() * density * (radius^2) * (velocity^2)/4;
-
-B= 3* math.pi()* viscosity*2*radius*velocity
-
-q = -(B^2) -4*(-mass*g)*C
-mass = 70
-deltat = 5
-g = 10
-def v(t):
-	brac = math.tanh(  (sqrt(-q)/(2*mass))  * (deltat))
-	return (sqrt(-q)/(2*C))*(brac - (b/sqrt(-q)))
-
-
-for 
-
-
-def y(t):
-	numerator = math.cosh((deltat)*sqrt(-q)/(2*mass))
-	denominator = math.cosh(deltat*sqrt(-q)/(2*mass))
-	brac = numerator/denominator
-	return (mass/C)*math.log(brac) - B*t/(2*C)
-
-'''
-
-
+print(data['Velocity Time (s)'].values.tolist())
 def getgravity(y):
 	h = y + 6378100
 	g = constants.G	*(5.972 * 10**24)/(h**2)
-	return 9.81
+	return g
 
 
 def getdensity(y):
@@ -62,19 +30,13 @@ def getdensity(y):
 
 	return density
 
-#'''
-
-
-'''def getviscosity(y):
-return
-'''
-
 def y(t):
 	deltat = 1;
 	vknot = 0;
 	yknot = 38969;
 	for i in range(0,int(t/deltat)):
-		v = vknot + (getgravity(yknot) - ((3.14*getdensity(yknot)*(radius**2)*(vknot**2)*0.5)/mass)*deltat)
+		v = vknot + (getgravity(yknot) - ((math.pi*getdensity(yknot)*(radius**2)*(vknot**2)*0.5)/mass)*deltat)
+		#Trapezoidal rule to estimate integral 
 		y = yknot -((v+vknot)*deltat/2)
 		vknot = v
 		yknot = y
@@ -84,4 +46,7 @@ def y(t):
 time = range(0,250)
 position = [y(i) for i in time]
 plt.plot(time,position)
+plt.plot(data['Alt Time (s)'],data['Altitude (m)'])
+#plt.plot(data['Velocity Time (s)'],data['Velocity (m/s)'])
 plt.show()
+
