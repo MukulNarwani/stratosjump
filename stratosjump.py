@@ -3,9 +3,9 @@ import math
 import json
 from scipy import constants
 import matplotlib.pyplot as plt
+
 radius = 0.4
 mass = 70
-
 
 data = pd.read_csv("pep.csv")
 
@@ -46,7 +46,13 @@ def y(t):
 time = range(0,250)
 position = [y(i) for i in time]
 plt.plot(time,position)
+
+
+#COMMENT EITHER ONE OF THESE OUT 
 plt.plot(data['Alt Time (s)'],data['Altitude (m)'])
 #plt.plot(data['Velocity Time (s)'],data['Velocity (m/s)'])
+
+
+
 plt.show()
 
