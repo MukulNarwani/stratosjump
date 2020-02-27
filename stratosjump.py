@@ -57,7 +57,7 @@ plt.plot(time,y(250)['Altitude'])
 
 plt.plot(data['Alt Time (s)'],data['Altitude (m)'])
 plt.figure(2)
-plt.subplot(211)
+plt.subplot(111)
 plt.plot(time, y(250)['velocity'])
 plt.plot(data['Velocity Time (s)'],data['Velocity (m/s)'])
 
