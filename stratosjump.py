@@ -9,7 +9,6 @@ mass = 70
 
 data = pd.read_csv("pep.csv")
 
-#print(data['Velocity Time (s)'].values.tolist())
 def getgravity(y,real):
 	if(not(real)):
 		 g = 9.81
