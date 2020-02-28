@@ -56,20 +56,29 @@ time = range(0,250)
 
 plt.figure(1)
 plt.subplot(111)
-plt.plot(time,y(250)['Altitude'])
+plt.plot(time,y(250)['Altitude'],label = 'simulation')
+plt.plot(data['Alt Time (s)'],data['Altitude (m)'],label = 'real')
 
+plt.ylabel('Altitude')
+plt.xlabel('Time')
+plt.title('Altitude vs Time')
 
-plt.plot(data['Alt Time (s)'],data['Altitude (m)'])
 plt.figure(2)
 plt.subplot(111)
-plt.plot(time, y(250)['velocity'])
-plt.plot(data['Velocity Time (s)'],data['Velocity (m/s)'])
+plt.plot(time, y(250)['velocity'],label='simulation')
+plt.plot(data['Velocity Time (s)'],data['Velocity (m/s)'],label='real')
+
+plt.title('Veloctity vs Time')
+plt.ylabel('Velocity')
+plt.xlabel('Time')
 
 plt.figure(3)
 plt.subplot(111)
-plt.plot(time,y(250,False)['velocity'])
-plt.plot(time,y(250)['velocity'])
+plt.plot(time,y(250,False)['velocity'],label='fake gravity')
+plt.plot(time,y(250)['velocity'],label = 'real')
 
-
+plt.title('Non simulated vs Simulated Gravity on Velocity')
+plt.ylabel('Velocity')
+plt.xlabel('Time')
 
 plt.show()
